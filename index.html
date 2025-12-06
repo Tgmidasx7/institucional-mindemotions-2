@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Emotions | Inteligência Emocional Pedagógica</title>
+    
+    <!-- Meta tags de SEO e Redes Sociais -->
+    <meta name="description" content="A primeira plataforma que transforma emoções em indicadores pedagógicos, reduzindo conflitos em sala de aula e aumentando o engajamento escolar.">
+    <meta property="og:title" content="Mind Emotions - Tecnologia com Alma">
+    <meta property="og:description" content="Mapeamento emocional e desempenho acadêmico para escolas do futuro.">
+
+    <!-- Tailwind CSS (CDN para funcionamento imediato sem build step) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuração personalizada do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#1e3a8a',    // Azul escuro confiável
+                            primary: '#3b82f6', // Azul vibrante
+                            light: '#eff6ff',   // Fundo suave
+                            accent: '#f59e0b',  // Laranja para destaque/alegria
+                            success: '#10b981', // Verde para resultados
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animações suaves */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Estilo para gradientes de texto */
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- NAV BAR -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-brand-primary rounded-lg flex items-center justify-center text-white text-xl">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <span class="font-display font-bold text-2xl text-brand-dark tracking-tight">Mind<span class="text-brand-primary">Emotions</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#problema" class="text-gray-600 hover:text-brand-primary font-medium transition">O Problema</a>
+                    <a href="#solucao" class="text-gray-600 hover:text-brand-primary font-medium transition">Solução</a>
+                    <a href="#resultados" class="text-gray-600 hover:text-brand-primary font-medium transition">Resultados</a>
+                    <a href="#planos" class="text-gray-600 hover:text-brand-primary font-medium transition">Planos</a>
+                    <a href="#contato" class="bg-brand-primary hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold transition shadow-lg shadow-blue-500/30">
+                        Agendar Demo
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMenu()" class="text-gray-600 hover:text-brand-dark focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 shadow-lg">
+                <a href="#problema" onclick="toggleMenu()" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-brand-light rounded-md">O Problema</a>
+                <a href="#solucao" onclick="toggleMenu()" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-brand-light rounded-md">Solução</a>
+                <a href="#resultados" onclick="toggleMenu()" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-brand-light rounded-md">Resultados</a>
+                <a href="#planos" onclick="toggleMenu()" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-brand-light rounded-md">Planos</a>
+                <a href="#contato" onclick="toggleMenu()" class="block px-3 py-2 text-base font-medium text-brand-primary font-bold bg-blue-50 rounded-md">Agendar Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-50"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-block px-4 py-1.5 mb-6 rounded-full bg-blue-50 border border-blue-100 text-brand-primary text-sm font-semibold tracking-wide uppercase shadow-sm animate-fade-in-down">
+                Inovação Pedagógica & BNCC
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-brand-dark leading-tight mb-6">
+                A Inteligência Emocional que <br class="hidden md:block" /> 
+                <span class="text-gradient">Sua Escola Precisa</span>
+            </h1>
+            
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-600 leading-relaxed mb-10">
+                A primeira plataforma que transforma emoções em indicadores pedagógicos, reduzindo conflitos em sala de aula e aumentando o engajamento escolar.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#solucao" class="px-8 py-4 bg-brand-primary hover:bg-blue-600 text-white rounded-full font-bold text-lg transition shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2">
+                    Saiba Mais <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#contato" class="px-8 py-4 bg-white text-brand-dark border border-gray-200 hover:border-brand-primary hover:bg-blue-50 rounded-full font-bold text-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> Falar com Consultor
+                </a>
+            </div>
+
+            <!-- Social Proof Mini -->
+            <div class="mt-12 pt-8 border-t border-gray-200/60 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-6 text-gray-500 text-sm">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-school text-brand-primary"></i> 50 Escolas Piloto no Piauí</span>
+                <span class="hidden md:inline text-gray-300">|</span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-brand-primary"></i> Conformidade Lei 14.531/2023</span>
+                <span class="hidden md:inline text-gray-300">|</span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-brand-primary"></i> Parceria UFPI & IFPI</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section id="problema" class="py-20 bg-brand-dark text-white relative reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">O conflito emocional nas <span class="text-brand-accent">Escolas Brasileiras</span></h2>
+                    <p class="text-blue-100 text-lg mb-6 leading-relaxed">
+                        70 a cada 100 pessoas apresentam sinais de ansiedade ou tristeza, e os professores continuam sem ferramentas para identificar esses sinais a tempo.
+                    </p>
+                    <p class="text-blue-200 mb-8">
+                        A BNCC exige desenvolvimento socioemocional, mas oferece apenas diretrizes, não soluções. Sua escola está preparada para transformar essa obrigação em vantagem competitiva?
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white block">Evasão escolar crescente</strong>
+                                <span class="text-sm text-blue-200">Alunos que desistem porque ninguém viu seu sofrimento.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white block">Conflitos diários</strong>
+                                <span class="text-sm text-blue-200">Birras, isolamento e bullying que consomem horas pedagógicas.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <strong class="text-white block">Pais insatisfeitos</strong>
+                                <span class="text-sm text-blue-200">Questionando "por que a escola não percebeu antes?".</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/20">
+                    <div class="text-center py-8">
+                        <i class="fa-solid fa-triangle-exclamation text-6xl text-brand-accent mb-4 animate-pulse"></i>
+                        <h3 class="text-2xl font-bold mb-2">O Custo do Invisível</h3>
+                        <p class="text-blue-100">Sem dados, a escola reage a incêndios em vez de prevenir as faíscas.</p>
+                    </div>
+                    <!-- Mockup de gráfico caindo ou alerta -->
+                    <div class="mt-6 bg-white/5 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2 text-sm text-blue-200">
+                            <span>Incidentes de Bullying</span>
+                            <span class="text-red-300">+25% este ano</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2.5">
+                            <div class="bg-red-400 h-2.5 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION SECTION -->
+    <section id="solucao" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">Mapeamento Emocional + Desempenho</h2>
+                <p class="text-xl text-gray-600">O Mind Emotions não é mais um app bonito. É um sistema de prevenção pedagógica.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card Aluno -->
+                <div class="bg-blue-50 rounded-2xl p-6 hover:-translate-y-2 transition duration-300 reveal">
+                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-brand-primary text-2xl mb-4">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Para o Aluno</h3>
+                    <p class="text-gray-600 text-sm">Interface lúdica onde em 2 minutos por dia, expressa emoções através de personagens e histórias divertidas.</p>
+                </div>
+
+                <!-- Card Professor -->
+                <div class="bg-green-50 rounded-2xl p-6 hover:-translate-y-2 transition duration-300 reveal delay-100">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center text-brand-success text-2xl mb-4">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Para o Professor</h3>
+                    <p class="text-gray-600 text-sm">Dashboard inteligente que mostra: "3 alunos precisam de atenção hoje" - sem análise complexa, apenas ações claras.</p>
+                </div>
+
+                <!-- Card Escola -->
+                <div class="bg-purple-50 rounded-2xl p-6 hover:-translate-y-2 transition duration-300 reveal delay-200">
+                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-2xl mb-4">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Para a Escola</h3>
+                    <p class="text-gray-600 text-sm">Relatórios semanais que provam: "Turmas com Mind Emotions têm 40% mais engajamento e 30% menos conflitos."</p>
+                </div>
+
+                <!-- Card Pais -->
+                <div class="bg-orange-50 rounded-2xl p-6 hover:-translate-y-2 transition duration-300 reveal delay-300">
+                    <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center text-brand-accent text-2xl mb-4">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Para os Pais</h3>
+                    <p class="text-gray-600 text-sm">Comunicação automática via WhatsApp: "Seu filho está mais participativo esta semana. Parabéns!"</p>
+                </div>
+            </div>
+
+            <!-- Features Checklist -->
+            <div class="mt-16 bg-gray-50 rounded-2xl p-8 border border-gray-200 reveal">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-brand-success text-xl"></i>
+                        <span class="font-medium text-gray-700">Não é clínico (Pedagógico)</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-brand-success text-xl"></i>
+                        <span class="font-medium text-gray-700">LGPD Kids Garantido</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-brand-success text-xl"></i>
+                        <span class="font-medium text-gray-700">Zero esforço operacional</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-check-circle text-brand-success text-xl"></i>
+                        <span class="font-medium text-gray-700">Resultados mensuráveis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section id="resultados" class="py-20 bg-gray-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-center mb-16">Escolas que Confiaram,<br><span class="text-brand-primary">Resultados que Comprovam</span></h2>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="text-center p-6 border border-gray-700 rounded-xl bg-gray-800/50 reveal">
+                    <div class="text-4xl lg:text-5xl font-bold text-brand-accent mb-2">89%</div>
+                    <p class="text-gray-400 text-sm">Das crianças se sentem "mais ouvidas"</p>
+                </div>
+                <div class="text-center p-6 border border-gray-700 rounded-xl bg-gray-800/50 reveal delay-100">
+                    <div class="text-4xl lg:text-5xl font-bold text-brand-primary mb-2">76%</div>
+                    <p class="text-gray-400 text-sm">Professores identificam padrões invisíveis</p>
+                </div>
+                <div class="text-center p-6 border border-gray-700 rounded-xl bg-gray-800/50 reveal delay-200">
+                    <div class="text-4xl lg:text-5xl font-bold text-brand-success mb-2">40%</div>
+                    <p class="text-gray-400 text-sm">Aumento no engajamento em sala</p>
+                </div>
+                <div class="text-center p-6 border border-gray-700 rounded-xl bg-gray-800/50 reveal delay-300">
+                    <div class="text-4xl lg:text-5xl font-bold text-purple-400 mb-2">65%</div>
+                    <p class="text-gray-400 text-sm">Redução em conflitos emocionais</p>
+                </div>
+            </div>
+
+            <!-- Testimonial -->
+            <div class="bg-gradient-to-r from-blue-900 to-brand-dark p-8 md:p-12 rounded-2xl border border-blue-800 relative reveal">
+                <i class="fa-solid fa-quote-left text-6xl text-blue-800 absolute top-4 left-4 opacity-50"></i>
+                <div class="relative z-10 max-w-4xl mx-auto text-center">
+                    <p class="text-xl md:text-2xl font-light italic mb-6">"Finalmente uma ferramenta que fala a língua do coração da criança e a linguagem de dados da gestão escolar. O Mind Emotions transformou nossa abordagem socioemocional de obrigação em diferencial competitivo."</p>
+                    <div>
+                        <h4 class="font-bold text-white text-lg">Maria Silva</h4>
+                        <span class="text-brand-primary">Coordenadora Pedagógica - Escola Referência, Teresina</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-primary font-bold tracking-wider uppercase text-sm">Processo Simples</span>
+                <h2 class="text-3xl md:text-4xl font-display font-bold mt-2">Implementação em 7 Dias,<br>Resultados em 30</h2>
+            </div>
+
+            <div class="relative">
+                <!-- Line connector (desktop only) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 -translate-y-1/2 z-0"></div>
+
+                <div class="grid md:grid-cols-4 gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-soft text-center reveal">
+                        <div class="w-12 h-12 bg-brand-dark text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-gray-50">1</div>
+                        <h3 class="font-bold text-lg mb-2">Configuração Rápida</h3>
+                        <p class="text-sm text-gray-600">Nosso time configura sua escola em 72h. Zero integrações complexas.</p>
+                        <span class="block mt-3 text-xs font-bold text-brand-primary">Dia 1-2</span>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-soft text-center reveal delay-100">
+                        <div class="w-12 h-12 bg-brand-dark text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-gray-50">2</div>
+                        <h3 class="font-bold text-lg mb-2">Capacitação Flash</h3>
+                        <p class="text-sm text-gray-600">Seus professores aprendem a usar a plataforma em uma única reunião de 45 min.</p>
+                        <span class="block mt-3 text-xs font-bold text-brand-primary">Dia 3</span>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-soft text-center reveal delay-200">
+                        <div class="w-12 h-12 bg-brand-dark text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-gray-50">3</div>
+                        <h3 class="font-bold text-lg mb-2">Início Gradual</h3>
+                        <p class="text-sm text-gray-600">Começamos com uma turma piloto. Ajustamos conforme feedback.</p>
+                        <span class="block mt-3 text-xs font-bold text-brand-primary">Dia 4-7</span>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-soft text-center reveal delay-300 transform scale-105 border-2 border-brand-primary">
+                        <div class="w-12 h-12 bg-brand-primary text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 border-4 border-gray-50">4</div>
+                        <h3 class="font-bold text-lg mb-2">Primeiro Impacto</h3>
+                        <p class="text-sm text-gray-600">Você recebe dados concretos sobre melhoria no clima escolar.</p>
+                        <span class="block mt-3 text-xs font-bold text-brand-primary">Dia 30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPETITIVE ADVANTAGE -->
+    <section class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <h2 class="text-3xl font-display font-bold text-center mb-10">Por que 50 Escolas no Piauí já Escolheram o Mind Emotions</h2>
+            
+            <div class="overflow-hidden rounded-xl border border-gray-200 shadow-lg">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200">
+                            <th class="p-4 font-bold text-gray-500 w-1/3">Critério</th>
+                            <th class="p-4 font-bold text-gray-400 w-1/3 text-center">Soluções Genéricas ❌</th>
+                            <th class="p-4 font-bold text-brand-dark w-1/3 text-center bg-blue-50">Mind Emotions ✅</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="p-4 font-medium text-gray-700">Foco da Análise</td>
+                            <td class="p-4 text-center text-gray-500">Só desempenho acadêmico</td>
+                            <td class="p-4 text-center font-bold text-brand-primary bg-blue-50/30">Emoção + Desempenho</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium text-gray-700">Linguagem</td>
+                            <td class="p-4 text-center text-gray-500">Complexa e técnica</td>
+                            <td class="p-4 text-center font-bold text-brand-primary bg-blue-50/30">Língua da criança e gestor</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium text-gray-700">Tempo do Professor</td>
+                            <td class="p-4 text-center text-gray-500">Horas de treinamento</td>
+                            <td class="p-4 text-center font-bold text-brand-primary bg-blue-50/30">Uso em 2 minutos</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium text-gray-700">Alertas</td>
+                            <td class="p-4 text-center text-gray-500">Relatórios manuais</td>
+                            <td class="p-4 text-center font-bold text-brand-primary bg-blue-50/30">Tempo real</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="planos" class="py-20 bg-brand-dark/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-center mb-16 text-gray-900">Investimento que Retorna em <br><span class="text-brand-primary">Clima Escolar</span></h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 items-start">
+                
+                <!-- Plan 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition border border-gray-100 reveal">
+                    <h3 class="text-xl font-bold text-gray-900">Escola Individual</h3>
+                    <div class="my-4">
+                        <span class="text-4xl font-bold text-gray-900">R$ 49</span>
+                        <span class="text-gray-500">/turma/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-gray-600">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Até 30 alunos por turma</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Dashboard do professor</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Relatórios semanais</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> LGPD Kids garantido</li>
+                    </ul>
+                    <a href="#contato" class="block w-full py-3 px-4 bg-gray-100 text-gray-800 font-bold text-center rounded-lg hover:bg-gray-200 transition">Começar Agora</a>
+                </div>
+
+                <!-- Plan 3 (Featured - Founders) -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-brand-accent relative transform md:-translate-y-4 reveal delay-100">
+                    <div class="absolute top-0 right-0 bg-brand-accent text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">OFERTA LIMITADA</div>
+                    <h3 class="text-xl font-bold text-gray-900">Plano Fundadores</h3>
+                    <div class="my-4">
+                        <p class="text-brand-accent font-bold text-lg">6 meses por 3</p>
+                        <p class="text-xs text-gray-500">50% de desconto nos primeiros 6 meses</p>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-gray-600">
+                        <li class="flex gap-2"><i class="fa-solid fa-star text-brand-accent"></i> <strong>Implementação com Mentoria</strong></li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Destaque como Case de Sucesso</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Garantia Total de Resultados</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Todas as funções do Pro</li>
+                    </ul>
+                    <a href="#contato" class="block w-full py-3 px-4 bg-brand-primary text-white font-bold text-center rounded-lg hover:bg-blue-600 transition shadow-lg shadow-blue-500/30">Garantir Oferta</a>
+                </div>
+
+                <!-- Plan 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition border border-gray-100 reveal delay-200">
+                    <h3 class="text-xl font-bold text-gray-900">Rede de Ensino</h3>
+                    <div class="my-4">
+                        <span class="text-4xl font-bold text-gray-900">R$ 399</span>
+                        <span class="text-gray-500">/escola/mês</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-gray-600">
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Todas as turmas inclusas</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Dashboard de gestão regional</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Consultoria estratégica</li>
+                        <li class="flex gap-2"><i class="fa-solid fa-check text-brand-success"></i> Integração com sistemas</li>
+                    </ul>
+                    <a href="#contato" class="block w-full py-3 px-4 bg-gray-100 text-gray-800 font-bold text-center rounded-lg hover:bg-gray-200 transition">Falar com Consultor</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GUARANTEE -->
+    <section class="py-16 bg-white border-y border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 text-center reveal">
+            <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-primary text-3xl">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Teste Sem Risco: 30 Dias ou Seu Dinheiro de Volta</h2>
+            <p class="text-gray-600 leading-relaxed mb-6">
+                Implementamos o Mind Emotions em sua escola por 30 dias completos. Se ao final deste período sua equipe pedagógica não identificar melhoria no clima escolar ou facilidade no acompanhamento emocional dos alunos, devolvemos 100% do investimento.
+            </p>
+            <p class="font-medium text-brand-dark">Sem perguntas. Sem burocracia. Apenas confiança.</p>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="contato" class="py-24 bg-gradient-to-br from-brand-dark to-blue-900 text-white text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">A Última Geração Cresceu com Facebook.<br>Esta Cresce com Saúde Mental.</h2>
+            <p class="text-xl text-blue-100 mb-10 leading-relaxed">
+                As escolas que entenderem que inteligência emocional não é gasto, mas investimento, serão as líderes da próxima década. <br>
+                Sua escola continuará contando histórias de crianças que "deram problema"... ou começará a escrever histórias de crianças que superaram?
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6 items-center">
+                <button onclick="document.location.href='https://wa.me/5586999154867'" class="w-full sm:w-auto px-8 py-5 bg-brand-success hover:bg-green-600 text-white rounded-full font-bold text-lg transition shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Agendar Demo Gratuita
+                </button>
+                <button class="w-full sm:w-auto px-8 py-5 bg-transparent border-2 border-white/30 hover:bg-white/10 text-white rounded-full font-semibold text-lg transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-file-pdf"></i> Baixar Caso de Sucesso
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4 text-white">
+                        <i class="fa-solid fa-brain text-brand-primary text-2xl"></i>
+                        <span class="font-bold text-2xl">Mind Emotions</span>
+                    </div>
+                    <p class="mb-6 max-w-sm">Tecnologia com Alma, Pedagogia com Resultados. Não medimos apenas emoções. Medimos o futuro da educação brasileira.</p>
+                    <div class="flex gap-4">
+                        <span class="bg-gray-800 px-3 py-1 rounded text-xs border border-gray-700">Parceria UFPI | IFPI</span>
+                        <span class="bg-gray-800 px-3 py-1 rounded text-xs border border-gray-700">Lei 14.531/2023</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Contato Rápido</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="mailto:contato@mindemotions.com.br" class="hover:text-brand-primary transition">contato@mindemotions.com.br</a></li>
+                        <li><a href="tel:+5586999154867" class="hover:text-brand-primary transition">(86) 99915-4867</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition">Teresina, Piauí</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Links Importantes</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-brand-primary transition">Política de Privacidade</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition">Casos de Sucesso</a></li>
+                        <li><a href="#" class="hover:text-brand-primary transition">Trabalhe Conosco</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2024 Mind Emotions. Todos os direitos reservados.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de Interatividade -->
+    <script>
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+
+        // Navbar bg change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.replace('bg-white/95', 'bg-white');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.replace('bg-white', 'bg-white/95');
+            }
+        });
+    </script>
+</body>
+</html>
